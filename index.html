@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.2.1.js"></script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <td>编号</td>
+                <td>用户名称</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody id="tbody1"></tbody>
+    </table>
+    <div class="roleList">
+        <h3>该用户未拥有的角色列表</h3>
+        <ul class="list"></ul>
+    </div>
+<script>
+    $(function () {
+        $.ajax({
+            type:"get",
+            url:"data/01_user_list.php",
+            success:function (data) {
+                var html="";
+                for(var i=0;i<data.length;i++){
+                    var obj=data[i];
+                    html+=`<tr>
+                <td>${obj.uid}</td>
+                <td>${obj.uname}</td>
+                <td>
+                    <a href="#" class="btn-del">删除</a>
+                    <a href="#" class="btn-del">更新</a>
+                    <a href="#" class="btn-del">详情</a>
+                    <a href="#" class="btn-del">拥有角色</a>
+                </td>
+            </tr>`;
+                }
+                $("#tbody1").html(html);
+
+
+            },error:function () {
+                alert("网络故障清除检查")
+            }
+        })
+    })
+</script>
+</body>
+</html>
